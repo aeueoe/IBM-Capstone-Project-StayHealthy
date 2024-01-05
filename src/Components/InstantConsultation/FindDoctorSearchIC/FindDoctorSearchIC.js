@@ -15,15 +15,39 @@ const initSpeciality = [
 const FindDoctorSearchIC = () => {
   const [doctorResultHidden, setDoctorResultHidden] = useState(true);
   const [searchDoctor, setSearchDoctor] = useState("");
-  const [specialities] = useState(initSpeciality);
-
+  const [specialities, setSpecialities] = useState(initSpeciality);
   const navigate = useNavigate();
-
   const handleDoctorSelect = (speciality) => {
     setSearchDoctor(speciality);
     setDoctorResultHidden(true);
-    navigate(`/InstantConsultation?speciality=${speciality}`);
+    navigate(`/instant-consultation?speciality=${speciality}`);
     window.location.reload();
+  };
+
+  let newSpecialities = [];
+  const filterSearch = (value) => {
+    setSearchDoctor(value);
+    if (value == "") {
+      setSpecialities(initSpeciality);
+      return;
+    }
+
+    newSpecialities = [];
+    initSpeciality.map((specialityItem) => {
+      if (specialityItem.toLowerCase().includes(value.toLowerCase()))
+        newSpecialities.push(specialityItem);
+    });
+    setSpecialities(newSpecialities);
+
+    console.log(newSpecialities);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      // 👇 Get input value
+      setSpecialities(["Dermatologist"]);
+      console.log("test");
+    }
   };
 
   return (
