@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./InstantConsultation.css";
+import "./InstantConsultation";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import FindDoctorSearchIC from "./FindDoctorSearchIC/FindDoctorSearchIC";
 import DoctorCardIC from "./DoctorCardIC/DoctorCardIC";
@@ -15,7 +15,6 @@ const InstantConsultation = () => {
       .then((res) => res.json())
       .then((data) => {
         if (searchParams.get("speciality")) {
-          // window.reload()
           const filtered = data.filter(
             (doctor) =>
               doctor.speciality.toLowerCase() ===
@@ -25,7 +24,6 @@ const InstantConsultation = () => {
           setFilteredDoctors(filtered);
 
           setIsSearched(true);
-          window.reload();
         } else {
           setFilteredDoctors([]);
           setIsSearched(false);
@@ -62,7 +60,7 @@ const InstantConsultation = () => {
     <center>
       <div className="searchpage-container">
         <FindDoctorSearchIC onSearch={handleSearch} />
-        <div className="search-results-container">
+        <div className="search-results-container mt-4">
           {isSearched ? (
             <center>
               <h2>
